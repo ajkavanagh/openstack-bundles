@@ -1,7 +1,6 @@
 # Basic OpenStack Cloud
 
-This example bundle deploys a basic OpenStack Cloud (Queens with Ceph Luminous) on Ubuntu 18.04 LTS (Bionic), providing Dashboard, Compute, Network, Block Storage, Object Storage, Identity and Im
-age services.
+This example bundle deploys a basic OpenStack Cloud (Queens with Ceph Luminous) on Ubuntu 18.04 LTS (Bionic), providing Dashboard, Compute, Network, Block Storage, Object Storage, Identity and Image services.
 
 ## Requirements
 
@@ -46,7 +45,7 @@ To horizontally scale Ceph:
 
     juju add-unit --to <machine-id-of-compute-service> ceph-osd
 
-**Note:** Other services in this bundle can be scaled in-conjunction with the hacluster charm to produce scalable, highly avaliable services - that will be covered in a different bundle.
+**Note:** Other services in this bundle can be scaled in-conjunction with the hacluster charm to produce scalable, highly available services - that will be covered in a different bundle.
 
 ## Ensuring it's working
 
@@ -79,7 +78,7 @@ In order to run instances on your cloud, you'll need to upload an image to boot 
     curl http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img | \
         openstack image create --public --container-format=bare --disk-format=qcow2 xenial
 
-Images for other architectures can be obtained from [Ubuntu Cloud Images][].  Be sure to use the appropriate image for the cpu architecture.
+Images for other architectures can be obtained from [Ubuntu Cloud Images][].  Be sure to use the appropriate image for the CPU architecture.
 
 **Note:** for ARM 64-bit (arm64) guests, you will also need to configure the image to boot in UEFI mode:
 
@@ -94,7 +93,7 @@ For the purposes of a quick test, we'll setup an 'external' network and shared r
         -g <gateway-ip> -c <network-cidr> \
         -f <pool-start>:<pool-end> ext_net
 
-for example (for a private cloud):
+For example (for a private cloud):
 
     ./neutron-ext-net-ksv3 --network-type flat
         -g 10.230.168.1 -c 10.230.168.0/21 \
@@ -117,7 +116,7 @@ Starting with the OpenStack Newton release, default flavors are no longer create
 
 ### Booting an instance
 
-First generate a SSH keypair so that you can access your instances once you've booted them:
+First generate a SSH key pair so that you can access your instances once you've booted them:
 
     mkdir -p ~/.ssh
     touch ~/.ssh/id_rsa_cloud
@@ -140,7 +139,7 @@ First, create a 10G volume in cinder:
 
     openstack volume create --size=10 <name-of-volume>
 
-then attach it to the instance we just booted:
+Then attach it to the instance we just booted:
 
     openstack server add volume xenial-test <name-of-volume>
 
@@ -153,7 +152,7 @@ In order to access the instance you just booted on the cloud, you'll need to ass
     openstack floating ip create ext_net
     openstack server add floating ip xenial-test <new-floating-ip>
 
-and then allow access via SSH (and ping) - you only need to do these steps once:
+Then allow access via SSH (and ping) - you only need to do these steps once:
 
     openstack security group list
 
@@ -172,7 +171,7 @@ After running these commands you should be able to access the instance:
 
 ## What next?
 
-Configuring and managing services on an OpenStack cloud is complex; take a look a the [OpenStack Admin Guide][] for a complete reference on how to configure an OpenStack cloud for your requirements.
+Configuring and managing services on an OpenStack cloud is complex; take a look at the [OpenStack Admin Guide][] for a complete reference on how to configure an OpenStack cloud for your requirements.
 
 ## Useful Cloud URLs
 
